@@ -1,0 +1,34 @@
+<!-- <input type="number" [(ngModel)]="newPost.id" class="form-control" placeholder="ID">
+<input type="text" [(ngModel)]="newPost.title" class="form-control" placeholder="Title">
+<input type="text" [(ngModel)]="newPost.body" class="form-control" placeholder="Body">
+<button (keyup.enter)="createPost()">Create Post</button> -->
+<input 
+  (keyup.enter)="createPost(idInput, titleInput, bodyInput)"
+  #idInput
+  type="number"
+  class="form-control"
+  placeholder="Enter Id"
+>
+<input  (keyup.enter)="createPost(idInput, titleInput, bodyInput)"
+  #titleInput
+  type="text"
+  class="form-control"
+  placeholder="Enter title"
+>
+
+<input  (keyup.enter)="createPost(idInput, titleInput, bodyInput)"
+  #bodyInput
+  type="text"
+  class="form-control"
+  placeholder="Enter body"
+>
+
+
+<ul>
+  <li *ngFor="let post of posts">
+    <p>ID: {{ post.id }}</p>
+    <p>Title: {{ post.title }}</p>
+    <p>Body: {{ post.body }}</p>
+  </li>
+</ul>
+
