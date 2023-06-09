@@ -10,6 +10,7 @@ export class PostsComponent {
   posts: any[] = [];
   newPost: any = {};
   private apiUrl: any = 'https://jsonplaceholder.typicode.com/posts';
+  message: any;
 
   constructor(private http: HttpClient) {
     this.getPosts();
@@ -28,7 +29,13 @@ export class PostsComponent {
       });
   }
 
-  createPost(idInput: HTMLInputElement, titleInput: HTMLInputElement, bodyInput: HTMLInputElement) {
+  createPost(idInput: HTMLInputElement, titleInput: HTMLInputElement, bodyInput: HTMLInputElement): void | string  {
+    if (!idInput.value || !titleInput.value || !bodyInput.value) {
+      // One or more input fields are empty, do not proceed with the submission
+      this.message = 'One or more input fields are empty. Please fill all fields.';
+      return;
+    }
+    
     let newPost = {
 
       id: idInput.value,
@@ -47,7 +54,7 @@ export class PostsComponent {
           newPost.id = newPost.id;
           newPost.title = response.title;
           newPost.body = response.body;
-          this.posts.push(newPost);
+          this.posts.splice(0, 0, newPost);
           this.clearForm();
         },
         error: (error) => {
