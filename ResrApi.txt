@@ -1,0 +1,7 @@
+PS D:\angular\ResrApi> echo "# ResrApi" >> README.md
+>> git init
+>> git add README.md
+>> git commit -m "api updated"
+>> git branch -M main
+>> git remote add origin https://github.com/jafan-mulama/ResrApi.git
+>> git push -u origin main
