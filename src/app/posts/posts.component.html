@@ -1,14 +1,13 @@
-
 <div>{{ message }}</div>
+
 <input 
-  (keyup.enter)="createPost(idInput, titleInput, bodyInput)"
   #idInput
   type="number"
   class="form-control"
   placeholder="Enter Id"
 >
+
 <input  
-  (keyup.enter)="createPost(idInput, titleInput, bodyInput)"
   #titleInput
   type="text"
   class="form-control"
@@ -16,18 +15,18 @@
 >
 
 <input  
-  (keyup.enter)="createPost(idInput, titleInput, bodyInput)"
   #bodyInput
   type="text"
-  class="form-control"
+  class="form-control" 
   placeholder="Enter body"
 >
 
 <ul>
   <li *ngFor="let post of posts">
+    <button (click)="updatePost(post, idInput, titleInput, bodyInput)" class="my-button">Update</button>&nbsp;&nbsp;
+    <button (click)="deletePost(post)" class="my-button">Delete Posts</button>
     <p>ID: {{ post.id }}</p>
     <p>Title: {{ post.title }}</p>
     <p>Body: {{ post.body }}</p>
   </li>
 </ul>
-

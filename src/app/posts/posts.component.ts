@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observer } from 'rxjs';
 
 @Component({
   selector: 'app-posts',
@@ -9,8 +10,8 @@ import { HttpClient } from '@angular/common/http';
 export class PostsComponent {
   posts: any[] = [];
   newPost: any = {};
-  private apiUrl: any = 'https://jsonplaceholder.typicode.com/posts';
-  message: any;
+  private apiUrl: string = 'https://jsonplaceholder.typicode.com/posts';
+  message!: string;
 
   constructor(private http: HttpClient) {
     this.getPosts();
@@ -37,7 +38,6 @@ export class PostsComponent {
     }
     
     let newPost = {
-
       id: idInput.value,
       title: titleInput.value,
       body: bodyInput.value
@@ -62,6 +62,44 @@ export class PostsComponent {
         }
       });
   }
+
+  updatePost(post: any, idInput: HTMLInputElement, titleInput: HTMLInputElement, bodyInput: HTMLInputElement): void {
+    const id = Number(idInput.value);
+    const title = titleInput.value;
+    const body = bodyInput.value;
+  
+    // Rest of your code here...
+  
+    // Update the post object with the new values
+    post.id = id;
+    post.title = title;
+    post.body = body;
+  
+    // Rest of your HTTP request code here...
+  }
+  
+  
+  
+  
+
+  deletePost(post: any): void {
+    this.http.delete(this.apiUrl+ '/' + post.id).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        let indext = this.posts.indexOf(post);
+        this.posts.splice(indext, 1)
+    
+      },
+      error: (error: any) => {
+        console.error(error);
+        // Handle the error here, display error message, etc.
+      },
+      complete: () => {
+        // Optional: Handle completion of the observable
+      }
+    });
+  }
+  
 
   clearForm() {
     this.newPost = {};
